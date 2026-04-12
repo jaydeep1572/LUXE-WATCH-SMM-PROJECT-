@@ -59,7 +59,7 @@ function openBlog(id) {
         <h3>1. High-Quality Visual Storytelling</h3>
         <p>Luxury is visual. Every image we post on Instagram is shot against premium backdrops — marble tabletops, Italian leather, cinematic lighting. The watch is never just a product; it is a character in a story about aspiration.</p>
         <h3>2. Reel-First Content Strategy</h3>
-        <p>Instagram Reels drive 3x more reach than static posts. LUXE creates short, cinematic reels — unboxings, behind-the-scenes of our craftsmanship, and lifestyle content featuring our ambassadors including Hardik Pandya.</p>
+        <p>Instagram Reels drive 3x more reach than static posts. LUXE creates short, cinematic reels — unboxings, behind-the-scenes of our craftsmanship, and lifestyle content featuring our ambassadors including KL Rahul.</p>
         <h3>3. Strategic Hashtag Architecture</h3>
         <p>We use a 3-tier hashtag system: broad luxury tags (#LuxuryWatch), niche product tags (#ChronographWatch), and branded tags (#LUXEWatch) — maximizing both reach and relevance.</p>
         <h3>4. Consistent Engagement</h3>
@@ -133,7 +133,7 @@ function openBlog(id) {
       content: `
         <p>The luxury advertising landscape is transforming rapidly. What worked in 2020 — glossy magazine spreads and TV commercials — is being replaced by immersive, digital-native formats.</p>
         <h3>Celebrity-Led Brand Films</h3>
-        <p>Our campaign with Hardik Pandya was not just a product ad — it was a 2-minute brand film that earned 4.2M organic views and 87,000 saves on Instagram. Storytelling, not selling.</p>
+        <p>Our campaign with KL Rahul was not just a product ad — it was a 2-minute brand film that earned 4.2M organic views and 87,000 saves on Instagram. Storytelling, not selling.</p>
         <h3>Shoppable Content</h3>
         <p>Instagram and YouTube now allow viewers to purchase directly from videos. LUXE's product videos are all shoppable — reducing the path from desire to purchase dramatically.</p>
         <h3>The Rise of Nano-Influencers</h3>
@@ -240,8 +240,8 @@ function initChatbot() {
     if (t.match(/^(hi|hello|hey|namaste)/)) return "Welcome to LUXE Watch! 🕐 I'm here to help. You can ask me about our watches, prices, marketing strategies, or anything else!";
     if (t.includes("price") || t.includes("cost") || t.includes("₹")) return "Our collection ranges from ₹18,000 (Sport X) to ₹55,000 (Prestige Series). The Royal Gold Edition is ₹25,000 and the Royal Black is ₹32,000. Visit the Products page for the full range!";
     if (t.includes("product") || t.includes("watch") || t.includes("collection")) return "LUXE offers 6 premium models: Classic Gold (₹25K), Sport X (₹18K), Royal Black (₹32K), Twilight Edition (₹45K), Prestige Series (₹55K), and Midnight Steel (₹22K). Every watch ships with a 5-year warranty!";
-    if (t.includes("hardik") || t.includes("pandya") || t.includes("ambassador") || t.includes("celebrity")) return "Hardik Pandya is our Brand Ambassador! His campaign generated 2.4M+ impressions in its first week. Visit our Affiliate Marketing page to see the full campaign and other influencer partnerships.";
-    if (t.includes("affiliate") || t.includes("influencer")) return "Our Affiliate Marketing program collaborates with high-profile personalities including Hardik Pandya, fashion creators, and business influencers. Together they reach 50M+ followers. Check the Affiliate page for details!";
+    if (t.includes("rahul") || t.includes("kl rahul") || t.includes("ambassador") || t.includes("celebrity")) return "KL Rahul is our Brand Ambassador! His campaign generated 2.4M+ impressions in its first week. Visit our Affiliate Marketing page to see the full campaign and other influencer partnerships.";
+    if (t.includes("affiliate") || t.includes("influencer")) return "Our Affiliate Marketing program collaborates with high-profile personalities including KL Rahul, Deepika Padukone, and Shah Rukh Khan. Together they reach 50M+ followers. Check the Affiliate page for details!";
     if (t.includes("mobile marketing") || t.includes("sms") || t.includes("push")) return "Mobile Marketing is key for LUXE! We use SMS campaigns (98% open rate), push notifications, in-app advertising, and QR code campaigns. Visit our Mobile Marketing page to learn more.";
     if (t.includes("seo") || t.includes("google") || t.includes("ranking")) return "LUXE targets 12 high-intent keywords like 'Best Luxury Watches India' and 'Watches Under ₹50000'. Our SEO has driven a 220% increase in organic traffic. See the SEO page for our full keyword strategy!";
     if (t.includes("email")) return "Our email campaigns achieve a 42% open rate with 8.5x ROI. We send newsletters, personalized offers, and VIP-only early access emails. Check the Email Marketing page for our sample campaign!";

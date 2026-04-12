@@ -1,112 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog — LUXE WATCH</title>
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+
 <body>
-<header>
-  <nav class="navbar">
-    <h1 class="logo">LUXE</h1>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="products.html">Products</a></li>
-      <li><a href="marketing.html">Marketing</a></li>
-      <li><a href="mobile-marketing.html">Mobile</a></li>
-      <li><a href="affiliate.html">Affiliate</a></li>
-      <li><a href="seo.html">SEO</a></li>
-      <li><a href="email.html">Email</a></li>
-      <li><a href="blog.html" class="active">Blog</a></li>
-      <li><a href="strategy.html">Strategy</a></li>
-      <li><a href="game.html">Game</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
-</header>
+  <header>
+    <nav class="navbar">
+      <h1 class="logo">LUXE</h1>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="marketing.html">Marketing</a></li>
+        <li><a href="mobile-marketing.html">Mobile</a></li>
+        <li><a href="affiliate.html">Affiliate</a></li>
+        <li><a href="seo.html">SEO</a></li>
+        <li><a href="email.html">Email</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="strategy.html">Strategy</a></li>
+        <li><a href="game.html">Game</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<div class="page-banner">
-  <p style="color: var(--red); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 12px;">Insights & Ideas</p>
-  <h1>The LUXE <span>Blog</span></h1>
-  <div class="divider"></div>
-  <p>Expert insights on luxury marketing, digital strategy, watches, and the art of premium branding.</p>
-</div>
-
-<!-- FEATURED POST -->
-<section class="lx-section">
-  <p style="color: var(--red); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px;">Editor's Pick</p>
-  <div style="background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; align-items: stretch; flex-wrap: wrap;">
-    <div style="flex: 1; min-width: 280px;">
-      <img src="watch1.jpg" alt="Featured" style="width: 100%; height: 100%; object-fit: cover; min-height: 280px; display: block;">
-    </div>
-    <div style="flex: 1.4; min-width: 300px; padding: 45px;">
-      <span class="blog-tag">Instagram Marketing</span>
-      <h2 style="font-family: var(--font-heading); font-size: 32px; margin: 14px 0 16px; line-height: 1.2;">5 Instagram Strategies That Are Transforming Luxury Watch Sales</h2>
-      <p style="color: var(--muted); font-size: 15px; line-height: 1.8; margin-bottom: 25px;">Discover how the world's most coveted watch brands are leveraging Instagram's visual platform to drive desire, engagement, and premium conversions — and what LUXE is doing to lead the way.</p>
-      <button class="btn btn-red" onclick="openBlog(1)">Read Full Article →</button>
-    </div>
+  <div class="page-banner">
+    <p style="color: var(--red); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 12px;">
+      Insights & Ideas</p>
+    <h1>The LUXE <span>Blog</span></h1>
+    <div class="divider"></div>
+    <p>Expert insights on luxury marketing, digital strategy, watches, and the art of premium branding.</p>
   </div>
-</section>
 
-<!-- BLOG GRID -->
-<section class="lx-section" style="border-top: 1px solid var(--border);">
-  <p style="color: var(--red); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px;">Latest Articles</p>
-  <h2 class="section-title">All Posts</h2>
-  <div class="grid-3" style="margin-top: 30px;">
-    <div class="blog-card-new">
-      <span class="blog-tag">SEO</span>
-      <h3>How SEO is Helping LUXE Dominate Google Search</h3>
-      <p>Our data-driven SEO strategy is placing LUXE at the top of luxury watch search results — here is exactly how we did it.</p>
-      <button class="read-link" onclick="openBlog(2)">Read More →</button>
+  <!-- FEATURED POST -->
+  <section class="lx-section">
+    <p style="color: var(--red); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px;">
+      Editor's Pick</p>
+    <div
+      style="background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; align-items: stretch; flex-wrap: wrap;">
+      <div style="flex: 1; min-width: 280px;">
+        <img src="watch_royal_black.png" alt="Featured"
+          style="width: 100%; height: 100%; object-fit: cover; min-height: 280px; display: block;">
+      </div>
+      <div style="flex: 1.4; min-width: 300px; padding: 45px;">
+        <span class="blog-tag">Instagram Marketing</span>
+        <h2 style="font-family: var(--font-heading); font-size: 32px; margin: 14px 0 16px; line-height: 1.2;">5
+          Instagram Strategies That Are Transforming Luxury Watch Sales</h2>
+        <p style="color: var(--muted); font-size: 15px; line-height: 1.8; margin-bottom: 25px;">Discover how the world's
+          most coveted watch brands are leveraging Instagram's visual platform to drive desire, engagement, and premium
+          conversions — and what LUXE is doing to lead the way.</p>
+        <button class="btn btn-red" onclick="openBlog(1)">Read Full Article →</button>
+      </div>
     </div>
-    <div class="blog-card-new">
-      <span class="blog-tag">Email Marketing</span>
-      <h3>Top Email Marketing Tips for Luxury Brands</h3>
-      <p>From subject line psychology to segmentation secrets — the high-converting email playbook used by premium lifestyle brands.</p>
-      <button class="read-link" onclick="openBlog(3)">Read More →</button>
-    </div>
-    <div class="blog-card-new">
-      <span class="blog-tag">Content Strategy</span>
-      <h3>Content Marketing for Premium Products: A Complete Guide</h3>
-      <p>How to use storytelling, value-driven content, and visual consistency to build authority in the luxury market.</p>
-      <button class="read-link" onclick="openBlog(4)">Read More →</button>
-    </div>
-    <div class="blog-card-new">
-      <span class="blog-tag">Mobile Marketing</span>
-      <h3>Mobile Marketing Mastery: Reaching Luxury Buyers on the Go</h3>
-      <p>Why 78% of luxury shoppers research on mobile first — and how LUXE is meeting them with flawless experiences.</p>
-      <button class="read-link" onclick="openBlog(5)">Read More →</button>
-    </div>
-    <div class="blog-card-new">
-      <span class="blog-tag">Advertising</span>
-      <h3>Luxury Watch Advertising Trends You Cannot Ignore in 2026</h3>
-      <p>From celebrity partnerships to cinematic short-films — the advertising strategies shaping the future of premium watch marketing.</p>
-      <button class="read-link" onclick="openBlog(6)">Read More →</button>
-    </div>
-    <div class="blog-card-new">
-      <span class="blog-tag">Brand Building</span>
-      <h3>The LUXE Story: Building a Premium Brand from the Ground Up</h3>
-      <p>An inside look at how we crafted the LUXE brand identity, our design philosophy, and the values driving every decision.</p>
-      <button class="read-link" onclick="openBlog(7)">Read More →</button>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- BLOG DETAIL -->
-<section id="blog-content" class="lx-section hidden" style="border-top: 1px solid var(--border);"></section>
+  <!-- BLOG GRID -->
+  <section class="lx-section" style="border-top: 1px solid var(--border);">
+    <p style="color: var(--red); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px;">
+      Latest Articles</p>
+    <h2 class="section-title">All Posts</h2>
+    <div class="grid-3" style="margin-top: 30px;">
+      <div class="blog-card-new">
+        <span class="blog-tag">SEO</span>
+        <h3>How SEO is Helping LUXE Dominate Google Search</h3>
+        <p>Our data-driven SEO strategy is placing LUXE at the top of luxury watch search results — here is exactly how
+          we did it.</p>
+        <button class="read-link" onclick="openBlog(2)">Read More →</button>
+      </div>
+      <div class="blog-card-new">
+        <span class="blog-tag">Email Marketing</span>
+        <h3>Top Email Marketing Tips for Luxury Brands</h3>
+        <p>From subject line psychology to segmentation secrets — the high-converting email playbook used by premium
+          lifestyle brands.</p>
+        <button class="read-link" onclick="openBlog(3)">Read More →</button>
+      </div>
+      <div class="blog-card-new">
+        <span class="blog-tag">Content Strategy</span>
+        <h3>Content Marketing for Premium Products: A Complete Guide</h3>
+        <p>How to use storytelling, value-driven content, and visual consistency to build authority in the luxury
+          market.</p>
+        <button class="read-link" onclick="openBlog(4)">Read More →</button>
+      </div>
+      <div class="blog-card-new">
+        <span class="blog-tag">Mobile Marketing</span>
+        <h3>Mobile Marketing Mastery: Reaching Luxury Buyers on the Go</h3>
+        <p>Why 78% of luxury shoppers research on mobile first — and how LUXE is meeting them with flawless experiences.
+        </p>
+        <button class="read-link" onclick="openBlog(5)">Read More →</button>
+      </div>
+      <div class="blog-card-new">
+        <span class="blog-tag">Advertising</span>
+        <h3>Luxury Watch Advertising Trends You Cannot Ignore in 2026</h3>
+        <p>From celebrity partnerships to cinematic short-films — the advertising strategies shaping the future of
+          premium watch marketing.</p>
+        <button class="read-link" onclick="openBlog(6)">Read More →</button>
+      </div>
+      <div class="blog-card-new">
+        <span class="blog-tag">Brand Building</span>
+        <h3>The LUXE Story: Building a Premium Brand from the Ground Up</h3>
+        <p>An inside look at how we crafted the LUXE brand identity, our design philosophy, and the values driving every
+          decision.</p>
+        <button class="read-link" onclick="openBlog(7)">Read More →</button>
+      </div>
+    </div>
+  </section>
 
-<footer class="site-footer">
-  <div class="footer-grid">
-    <div class="footer-brand"><h2 class="footer-logo">LUXE</h2><p>Defining luxury one timepiece at a time.</p></div>
-    <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="products.html">Products</a></li><li><a href="marketing.html">Marketing</a></li><li><a href="blog.html">Blog</a></li></ul></div>
-    <div class="footer-col"><h4>Resources</h4><ul><li><a href="seo.html">SEO</a></li><li><a href="affiliate.html">Affiliate</a></li><li><a href="strategy.html">Strategy</a></li><li><a href="email.html">Email</a></li></ul></div>
-    <div class="footer-col"><h4>Connect</h4><ul><li><a href="contact.html">Contact Us</a></li><li><a href="game.html">Play Game</a></li></ul><div class="footer-social" style="margin-top: 18px;"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-twitter"></i></a></div></div>
-  </div>
-  <div class="footer-bottom"><p>© 2026 LUXE WATCH · All Rights Reserved</p><p style="color: var(--red);">Luxury. Precision. Legacy.</p></div>
-</footer>
-<script src="script.js"></script>
+  <!-- BLOG DETAIL -->
+  <section id="blog-content" class="lx-section hidden" style="border-top: 1px solid var(--border);"></section>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h2 class="footer-logo">LUXE</h2>
+        <p>Defining luxury one timepiece at a time.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="marketing.html">Marketing</a></li>
+          <li><a href="blog.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="seo.html">SEO</a></li>
+          <li><a href="affiliate.html">Affiliate</a></li>
+          <li><a href="strategy.html">Strategy</a></li>
+          <li><a href="email.html">Email</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="game.html">Play Game</a></li>
+        </ul>
+        <div class="footer-social" style="margin-top: 18px;"><a href="#"><i class="fab fa-instagram"></i></a><a
+            href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-twitter"></i></a></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 LUXE WATCH · All Rights Reserved</p>
+      <p style="color: var(--red);">Luxury. Precision. Legacy.</p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
 </body>
+
 </html>

@@ -3,7 +3,6 @@
 // ==========================
 window.addEventListener("load", () => {
   document.querySelectorAll(".lx-section").forEach(sec => sec.classList.add("show"));
-  initChatbot();
 });
 
 window.addEventListener("scroll", () => {
@@ -186,28 +185,81 @@ function openBlog(id) {
 }
 
 // ==========================
-// AI CHATBOT
+// LUXE PREMIUM AI (JOTFORM STYLE)
 // ==========================
+const LUXE_KNOWLEDGE = {
+  products: {
+    "classic gold": "The Classic Gold (₹25,000) features a 24k gold-plated case and premium leather strap. It's our most popular evening piece.",
+    "sport x": "Sport X (₹18,000) is built with a titanium grade-5 body and is water-resistant up to 100m. Perfect for athletes.",
+    "royal black": "The Royal Black (₹32,000) is an all-matte masterpiece with a sapphire crystal face and automatic movement.",
+    "twilight edition": "Twilight Edition (₹45,000) is a limited-run piece with a dual-time display and glow-in-the-dark moonphase.",
+    "prestige series": "Our flagship Prestige Series (₹55,000) features a tourbillon-inspired design and a handcrafted silver dial.",
+    "midnight steel": "Midnight Steel (₹22,000) is a sleek, monochromatic watch with a mesh strap for a modern professional look."
+  },
+  marketing: {
+    "seo": "Our SEO strategy targets 12 keywords like 'Luxury Watch India' and has resulted in a 220% traffic increase.",
+    "email": "LUXE email campaigns achieve 42% open rates by using personalized VIP invitations and high-end visual design.",
+    "mobile": "We focus on mobile-first design and 98% open-rate SMS campaigns for our top-tier customers.",
+    "ambassadors": "KL Rahul, Deepika Padukone, and Shah Rukh Khan are our primary brand partners, reaching over 50M people."
+  },
+  general: {
+    "warranty": "Every LUXE watch includes a 5-year international warranty and a certificate of authenticity.",
+    "location": "Our flagship showroom is located in Ahmedabad, Gujarat. We ship for free across India.",
+    "about": "LUXE was founded in 2020 to bring Swiss-level craftsmanship to India. We've served over 5,000 clients so far."
+  }
+};
+
 function initChatbot() {
   const chatHTML = `
     <div id="chatbot-widget">
-      <div id="chat-container" style="display:none; flex-direction:column;">
+      <div id="chat-container">
         <div id="chat-header">
-          <div>
-            <div class="chat-title">LUXE AI Assistant</div>
-            <div class="chat-status">● Online — Ask me anything</div>
+          <div class="header-user-info">
+            <img src="ai_assistant_avatar.png" class="header-avatar" alt="AI Avatar">
+            <div class="header-titles">
+              <div class="chat-title">LUXE AI <span>AI Agent</span></div>
+              <div class="chat-subtitle">Timeless Luxury Expert</div>
+            </div>
           </div>
           <i class="fas fa-times" id="close-chat"></i>
         </div>
-        <div id="chat-box">
-          <div class="chat-msg chat-bot">Hello! I'm the LUXE Watch AI. Ask me about our products, marketing strategies, or anything about the brand. 🕐</div>
+
+        <div id="chat-main-area">
+          <div id="chat-view">
+             <div class="msg-bot-wrap">
+               <div class="msg-bot">Hello! I'm the LUXE AI Agent. How can I help you discover our luxury collection today?</div>
+               <div class="quick-actions">
+                 <button class="btn-action" onclick="chatbotSend('Show watches')">Explore Watches</button>
+                 <button class="btn-action" onclick="chatbotSend('Tell me about KL Rahul')">Celebrity Ads</button>
+               </div>
+             </div>
+          </div>
+          <div id="history-view"></div>
+          <div id="voice-overlay">
+            <div class="voice-visualizer"><i class="fas fa-microphone"></i></div>
+            <h3 id="voice-status">Listening...</h3>
+            <p id="voice-transcript" style="font-size: 14px; opacity: 0.7; margin-top: 10px;"></p>
+            <button class="btn-action" style="margin-top: 20px;" onclick="stopVoice()">Cancel</button>
+          </div>
         </div>
-        <div id="chat-input-area">
-          <input type="text" id="chat-input" placeholder="Ask about products, marketing...">
-          <button id="chat-send"><i class="fas fa-paper-plane"></i></button>
+
+        <div id="chat-input-container">
+          <div class="chat-input-wrap">
+            <input type="text" id="chat-input" placeholder="Type here...">
+            <i class="fas fa-paper-plane" id="chat-send" style="cursor:pointer; color:#0f172a;"></i>
+            <i class="fas fa-microphone-lines icon-voice" id="voice-btn"></i>
+          </div>
         </div>
+
+        <div class="chat-nav">
+          <div class="nav-tab active" id="tab-chat" onclick="switchTab('chat')"><i class="fas fa-comment-dots"></i>Chat</div>
+          <div class="nav-tab" id="tab-voice" onclick="switchTab('voice')"><i class="fas fa-microphone"></i>Voice</div>
+          <div class="nav-tab" id="tab-history" onclick="switchTab('history')"><i class="fas fa-clock-rotate-left"></i>History</div>
+        </div>
+
+        <div class="chat-footer">Powered by <b>LUXE AI</b></div>
       </div>
-      <button id="chat-toggle"><i class="fas fa-comments"></i></button>
+      <button id="chat-toggle"><i class="fas fa-comment"></i></button>
     </div>
   `;
 
@@ -216,64 +268,135 @@ function initChatbot() {
   const chatToggle = document.getElementById("chat-toggle");
   const chatContainer = document.getElementById("chat-container");
   const closeChat = document.getElementById("close-chat");
-  const chatSend = document.getElementById("chat-send");
   const chatInput = document.getElementById("chat-input");
-  const chatBox = document.getElementById("chat-box");
+  const chatSend = document.getElementById("chat-send");
+  const chatView = document.getElementById("chat-view");
+  const historyView = document.getElementById("history-view");
+  const voiceOverlay = document.getElementById("voice-overlay");
+  const voiceBtn = document.getElementById("voice-btn");
+
+  let currentTab = 'chat';
+  let recognition = null;
+  if ('webkitSpeechRecognition' in window) {
+    recognition = new webkitSpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = 'en-US';
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      const transcriptEl = document.getElementById("voice-transcript");
+      if (transcriptEl) transcriptEl.innerText = transcript;
+      if (event.results[0].isFinal) {
+        setTimeout(() => { chatbotSend(transcript); stopVoice(); }, 800);
+      }
+    };
+  }
 
   chatToggle.onclick = () => {
-    const isOpen = chatContainer.style.display === "flex";
-    chatContainer.style.display = isOpen ? "none" : "flex";
+    const isVisible = chatContainer.style.display === "flex";
+    chatContainer.style.display = isVisible ? "none" : "flex";
   };
 
   closeChat.onclick = () => { chatContainer.style.display = "none"; };
 
-  const addMsg = (text, sender) => {
-    const div = document.createElement("div");
-    div.classList.add("chat-msg", sender === "bot" ? "chat-bot" : "chat-user");
-    div.textContent = text;
-    chatBox.appendChild(div);
-    chatBox.scrollTop = chatBox.scrollHeight;
+  window.switchTab = (tab) => {
+    currentTab = tab;
+    document.querySelectorAll(".nav-tab").forEach(t => t.classList.remove("active"));
+    const activeTabEl = document.getElementById(`tab-${tab}`);
+    if (activeTabEl) activeTabEl.classList.add("active");
+    
+    chatView.style.display = tab === 'chat' ? 'flex' : 'none';
+    historyView.style.display = tab === 'history' ? 'flex' : 'none';
+    const inputContainer = document.getElementById("chat-input-container");
+    if (inputContainer) inputContainer.style.display = tab === 'history' ? 'none' : 'block';
+
+    if (tab === 'voice') startVoice();
+    if (tab === 'history') renderHistory();
   };
 
-  const getResponse = (input) => {
-    const t = input.toLowerCase().trim();
-    if (t.match(/^(hi|hello|hey|namaste)/)) return "Welcome to LUXE Watch! 🕐 I'm here to help. You can ask me about our watches, prices, marketing strategies, or anything else!";
-    if (t.includes("price") || t.includes("cost") || t.includes("₹")) return "Our collection ranges from ₹18,000 (Sport X) to ₹55,000 (Prestige Series). The Royal Gold Edition is ₹25,000 and the Royal Black is ₹32,000. Visit the Products page for the full range!";
-    if (t.includes("product") || t.includes("watch") || t.includes("collection")) return "LUXE offers 6 premium models: Classic Gold (₹25K), Sport X (₹18K), Royal Black (₹32K), Twilight Edition (₹45K), Prestige Series (₹55K), and Midnight Steel (₹22K). Every watch ships with a 5-year warranty!";
-    if (t.includes("rahul") || t.includes("kl rahul") || t.includes("ambassador") || t.includes("celebrity")) return "KL Rahul is our Brand Ambassador! His campaign generated 2.4M+ impressions in its first week. Visit our Affiliate Marketing page to see the full campaign and other influencer partnerships.";
-    if (t.includes("affiliate") || t.includes("influencer")) return "Our Affiliate Marketing program collaborates with high-profile personalities including KL Rahul, Deepika Padukone, and Shah Rukh Khan. Together they reach 50M+ followers. Check the Affiliate page for details!";
-    if (t.includes("mobile marketing") || t.includes("sms") || t.includes("push")) return "Mobile Marketing is key for LUXE! We use SMS campaigns (98% open rate), push notifications, in-app advertising, and QR code campaigns. Visit our Mobile Marketing page to learn more.";
-    if (t.includes("seo") || t.includes("google") || t.includes("ranking")) return "LUXE targets 12 high-intent keywords like 'Best Luxury Watches India' and 'Watches Under ₹50000'. Our SEO has driven a 220% increase in organic traffic. See the SEO page for our full keyword strategy!";
-    if (t.includes("email")) return "Our email campaigns achieve a 42% open rate with 8.5x ROI. We send newsletters, personalized offers, and VIP-only early access emails. Check the Email Marketing page for our sample campaign!";
-    if (t.includes("strategy") || t.includes("plan")) return "Our strategy runs in 4 phases over 6 months — Foundation, Growth, Scale, and Optimize. Goals include 300% traffic growth, 25K subscribers, and 5x revenue. See the Strategy page for the full roadmap!";
-    if (t.includes("blog")) return "Our blog covers Instagram marketing, SEO secrets, email tips, mobile marketing, luxury ad trends, and the LUXE brand story. Head to the Blog page — we have 7 articles live!";
-    if (t.includes("contact") || t.includes("help") || t.includes("support") || t.includes("reach")) return "You can reach us at luxewatch@email.com or call +91 98765 43210. Our showroom is in Ahmedabad, open Mon–Sat 10am–7pm. Visit the Contact page to send a direct message!";
-    if (t.includes("game") || t.includes("play")) return "We have a fun game — Catch the Watches! LUXE watches fall from the sky and you click them to score points. It includes a celebrity video ad break featuring Hardik Pandya. Visit the Game page to play!";
-    if (t.includes("warranty") || t.includes("guarantee")) return "Every LUXE watch comes with a 5-year international warranty, a certificate of authenticity, and premium gift packaging. We stand 100% behind every timepiece.";
-    if (t.includes("about") || t.includes("who") || t.includes("luxe")) return "LUXE Watch was founded in Ahmedabad to fill a gap in India's luxury market. We blend Swiss-inspired precision with Indian craftsmanship, creating watches for those who refuse the ordinary. Since 2020, we've served 5K+ happy clients.";
-    if (t.includes("location") || t.includes("where") || t.includes("address")) return "LUXE is based in Ahmedabad, Gujarat, India (380001). We deliver across India with free premium packaging. Our flagship showroom accepts private viewings by appointment!";
-    return "Great question! I specialize in LUXE Watch — our products, marketing strategies, pricing, and brand story. Try asking about: watches, prices, SEO, email, mobile marketing, Hardik Pandya, or our game! 🕐";
+  window.startVoice = () => {
+    voiceOverlay.style.display = "flex";
+    if (recognition) recognition.start();
+    const statusEl = document.getElementById("voice-status");
+    if (statusEl) statusEl.innerText = "Listening...";
+    const transcriptEl = document.getElementById("voice-transcript");
+    if (transcriptEl) transcriptEl.innerText = "";
   };
 
-  const handleSend = () => {
-    const msg = chatInput.value.trim();
+  window.stopVoice = () => {
+    voiceOverlay.style.display = "none";
+    if (recognition) recognition.stop();
+    switchTab('chat');
+  };
+
+  window.chatbotSend = (text) => {
+    const msg = text || chatInput.value.trim();
     if (!msg) return;
-    addMsg(msg, "user");
-    chatInput.value = "";
+    if (!text) chatInput.value = "";
 
-    // Typing indicator
-    const typing = document.createElement("div");
-    typing.classList.add("chat-msg", "chat-bot");
-    typing.innerHTML = "<i>Thinking...</i>";
-    chatBox.appendChild(typing);
-    chatBox.scrollTop = chatBox.scrollHeight;
+    addMsgUI(msg, "user");
+    saveToHistory(msg, "user");
 
     setTimeout(() => {
-      typing.remove();
-      addMsg(getResponse(msg), "bot");
-    }, 700);
+      const response = getAIResponse(msg);
+      addMsgUI(response, "bot");
+      saveToHistory(response, "bot");
+      speakText(response);
+    }, 600);
   };
 
-  chatSend.onclick = handleSend;
-  chatInput.addEventListener("keypress", e => { if (e.key === "Enter") handleSend(); });
+  function addMsgUI(text, sender) {
+    const div = document.createElement("div");
+    div.className = sender === "bot" ? "msg-bot-wrap" : "msg-user";
+    div.innerHTML = sender === "bot" ? `<div class="msg-bot">${text}</div>` : text;
+    chatView.appendChild(div);
+    chatView.scrollTop = chatView.scrollHeight;
+  }
+
+  function getAIResponse(input) {
+    const t = input.toLowerCase();
+    for (let product in LUXE_KNOWLEDGE.products) { if (t.includes(product)) return LUXE_KNOWLEDGE.products[product]; }
+    for (let cat in LUXE_KNOWLEDGE.marketing) { if (t.includes(cat)) return LUXE_KNOWLEDGE.marketing[cat]; }
+    if (t.includes("seo")) return LUXE_KNOWLEDGE.marketing.seo;
+    if (t.includes("strategy") || t.includes("plan")) return "Our strategy focuses on 4 pillars: Social Storytelling, SEO Dominance, Email VIP lists, and Mobile SMS conversion.";
+    if (t.includes("rahul") || t.includes("deepika") || t.includes("celebrity") || t.includes("ads")) return LUXE_KNOWLEDGE.marketing.ambassadors;
+    if (t.includes("warranty")) return LUXE_KNOWLEDGE.general.warranty;
+    if (t.includes("about") || t.includes("story")) return LUXE_KNOWLEDGE.general.about;
+    if (t.includes("price") || t.includes("cost")) return "Our watches range from ₹18,000 to ₹55,000. Which one interests you?";
+    return "I'm here to help with anything regarding LUXE-WATCH! Ask about watches, prices, or our KL Rahul ads.";
+  }
+
+  function saveToHistory(text, sender) {
+    const history = JSON.parse(localStorage.getItem("luxe_chat_history") || "[]");
+    history.push({ text, sender, date: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) });
+    localStorage.setItem("luxe_chat_history", JSON.stringify(history.slice(-20)));
+  }
+
+  function renderHistory() {
+    const history = JSON.parse(localStorage.getItem("luxe_chat_history") || "[]");
+    historyView.innerHTML = history.length ? "" : "<p style='text-align:center; opacity:0.5; margin-top:20px;'>No history yet.</p>";
+    history.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "history-item";
+      div.innerHTML = `<div class="history-text"><b>${item.sender === 'bot' ? 'AI' : 'You'}:</b> ${item.text}</div><div class="history-date">${item.date}</div>`;
+      historyView.appendChild(div);
+    });
+  }
+
+  function speakText(text) {
+    if (currentTab === 'voice' && 'speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.9; utterance.pitch = 1.1;
+      window.speechSynthesis.speak(utterance);
+    }
+  }
+
+  chatSend.onclick = () => chatbotSend();
+  chatInput.onkeypress = (e) => { if (e.key === "Enter") chatbotSend(); };
+  voiceBtn.onclick = () => switchTab('voice');
 }
+
+initChatbot();
+
+
